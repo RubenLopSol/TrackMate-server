@@ -32,7 +32,7 @@ router.get("/:idPackage", (req, res, next) => {
 })
 router.put("/:idPackage/edit", (req, res, next) => {
   const { id } = req.params;
-  const { title, description, address } = req.body,
+  const { title, description, address } = req.body;
 
   if (isTransported != "Pending") return;
 
