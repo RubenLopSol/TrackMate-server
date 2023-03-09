@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const sendMail = require("../utils/nodemailer")
+/* const sendMail = require("../utils/nodemailer") */
 
 const bcrypt = require("bcrypt");
 
@@ -13,12 +13,12 @@ const saltRounds = 10;
 
 router.post("/signup", (req, res, next) => {
 
-  const { email, password, userName, isTransporter } = req.body;
+  const { email, password, userName, lastname, isTransporter } = req.body;
 
   const username = userName;
 
   // Check if email or password or name are provided as empty strings
-  if (email === "" || password === "" || username === "") {
+  if (email === "" || password === "" || username === "" || lastname === "") {
     res.status(400).json({ message: "Provide email, password and name" });
     return;
   }
@@ -54,7 +54,7 @@ router.post("/signup", (req, res, next) => {
 
       // Create the new user in the database
       // We return a pending promise, which allows us to chain another `then`
-      return User.create({ email, password: hashedPassword, username });
+      return User.create({ email, password: hashedPassword, username, lastname, isTransporter });
     })
     .then((createdUser) => {
       // Deconstruct the newly created user object to omit the password

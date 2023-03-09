@@ -13,19 +13,19 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required."],
     },
-    name: {
+    username: {
       type: String,
-      /* required: [true, "Name is required."], */
+      required: [true, "Name is required."],
     },
     lastname: {
       type: String,
       required: true,
 
     },
-    phone: {
+    /* phone: {
       type: Number,
       unique: true,
-    },
+    }, */
     avatar: {
       type: String,
       default: " ",
