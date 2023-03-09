@@ -20,7 +20,6 @@ const userSchema = new Schema(
     lastname: {
       type: String,
       required: true,
-
     },
     /* phone: {
       type: Number,
@@ -30,10 +29,7 @@ const userSchema = new Schema(
       type: String,
       default: " ",
     },
-    myPackages:
-      [{ type: Schema.Types.ObjectId, ref: "Package" }]
-    ,
-
+    myPackages: [{ type: Schema.Types.ObjectId, ref: "Package" }],
     isTransporter: {
       type: Boolean,
       default: false,
@@ -43,18 +39,17 @@ const userSchema = new Schema(
       unique: true,
       license: {
         type: String,
-        enum: ["B1", "B", "C1"]
-
+        enum: ["B1", "B", "C1"],
       },
       image: {
         type: String,
-      }
+      },
     },
     licensePlate: {
       type: String,
     },
 
-    transportedPackages: [{ type: Schema.Types.ObjectId, ref: "Package" }]
+    transportedPackages: [{ type: Schema.Types.ObjectId, ref: "Package" }],
   },
   {
     timestamps: true,
