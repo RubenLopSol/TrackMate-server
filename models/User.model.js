@@ -21,13 +21,11 @@ const userSchema = new Schema(
       type: String,
       default: " ",
     },
-    package: 
-       [{type: Schema.Types.ObjectId, ref:"package"}]
-    ,
+    package: [{ type: Schema.Types.ObjectId, ref: "package" }],
     isTransporter: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   {
     timestamps: true,
