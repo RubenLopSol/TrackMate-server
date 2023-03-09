@@ -5,19 +5,25 @@ const packageSchema = new Schema(
     title: {
       type: String,
       required: true,
+
     },
     creator: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
+      type: Schema.Types.ObjectId, ref: "User",
     },
     description: String,
-    adress: {
+    address: {
       type: String,
       required: true,
     },
-    filepath: {
+    size: {
       type: String,
+      enum: ["XS", "S", "M", "L", "XL", "XXL"],
     },
+    isTransported: {
+      type: String,
+      default: "Pending",
+      enum: ["Pending", "In delivery", "Delivered"]
+    }
   },
   {
     timestamps: true,

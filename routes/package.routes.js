@@ -1,18 +1,59 @@
 const express = require("express");
+const { findByIdAndUpdate } = require("../models/Package.model");
 const router = express.Router();
+const Package = require("../models/Package.model")
 
 router.get("/all", (req, res, next) => {
-  res.json("All packages");
+  Package.find()
+    .populate("creator")
+    .then(response => {
+      res.json(response)
+    })
+    .catch(err => next(err))
 });
 router.post("/new", (req, res, next) => {
-  res.json("NEW")
+  const { title, description, address } = req.body;
+
+    Package.create({ title, description, address })
+      .then(response => {
+        res.json(response)
+      })
+      .catch(err => next(err))
 })
 
-router.put("/edit/:packageId", (req, res, next) => {
-  res.json("Package edit")
+router.get("/:idPackage", (req, res, next) => {
+  const { idPackage } = req.params;
+  Package.findById(idPackage)
+    .populate("creator")
+    .then(response => {
+      res.json(response)
+    })
+    .catch(err => next(err))
 })
-router.delete("/delete/:packageId", (req, res, next) => {
-  res.json("Delete")
+router.put("/:idPackage/edit", (req, res, next) => {
+  const { id } = req.params;
+  const { title, description, address } = req.body,
+
+  if (isTransported != "Pending") return;
+
+  findByIdAndUpdate(id, {title, description, address}, {new:true})
+  .then(result => {
+    res.json(result)
+  })
+  .catch(err=> next(err))
+
 })
+
+router.delete("/:idPackage/delete", (req, res, next)=> {
+  const{id} = req.params;
+  if(isTransported != "Pending") return;
+  Package.findByIdAndDelete(id)
+  .then(result=> {
+    res.json(result)
+  })
+  .catch(err=>next(err))
+})
+
+
 
 module.exports = router;
