@@ -11,7 +11,7 @@ const packageSchema = new Schema(
     type: Schema.Types.ObjectId, ref: "user"
    },
    description: String,
-   adress: {
+   address: {
     type: String,
     required: true,
    },
