@@ -4,13 +4,11 @@ Hello! Our project intends to implement a very useful application to facilitate 
 In turn, provide a detailed user experience, about the process in which the package is, for the recipient of it.
 Below you will find more specific information about the code implemented in this case, the frontend part, with React.
 
- 
-
 ![photo](imgREADME.png)
 
 ### Project Deployment
 
-The project is deployed using fly.dev **[here](https://fly.io/apps/buenobonitobarato2)**
+The project is deployed using fly.dev **[here](##)**
 
 ### Work structure
 
@@ -27,23 +25,22 @@ Fork and clone this repo and follow the belo instructions
 
 ### User Roles
 
-| Role      | Capabilities                                                                                                                                      | Properities    |
-| :-------- | :------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- |
-| **User/User**  | User can `login/logout` to his/her personal profile and read/delete/create new packages, modify his/her personal data and one time package is send, can track the estatus of his sending looking the real position of the Carrier | isTransporter: false |
-| **User/Carrier** | Carrier have access to `login/logout` and to all packages, stored by sending day, and a map with the most optimal route to deliver his/her cargo                | isTransporter: true  |
+| Role             | Capabilities                                                                                                                                                                                                                      | Properities          |
+| :--------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| **User/User**    | User can `login/logout` to his/her personal profile and read/delete/create new packages, modify his/her personal data and one time package is send, can track the estatus of his sending looking the real position of the Carrier | isTransporter: false |
+| **User/Carrier** | Carrier have access to `login/logout` and to all packages, stored by sending day, and a map with the most optimal route to deliver his/her cargo                                                                                  | isTransporter: true  |
 
 ### Routes
 
-| Method    | Endpoint               | Description                                |
-| :-------  | :--------------------- | :----------------------------------------- |
-| **POST**  | `/signup`              | User register DataBase                     |
-| **POST**  | `/login`               | Verifies email and password and returns a JWT  |
-| **GET**   | `/verify`              | Verify  if JWT is stored on client         |
-| **GET**   | `/all`                 | Send all packages to user                  |
-| **POST**  | `/new`                 | Create a new package                       |
-| **PUT**   | `/edit/:packageId`     | Edit a especific package by ID             |
-| **DELETE**| `/delete/:packageId`   | Delete especific package base on his ID    |
-
+| Method     | Endpoint             | Description                                   |
+| :--------- | :------------------- | :-------------------------------------------- |
+| **POST**   | `/signup`            | User register DataBase                        |
+| **POST**   | `/login`             | Verifies email and password and returns a JWT |
+| **GET**    | `/verify`            | Verify if JWT is stored on client             |
+| **GET**    | `/all`               | Send all packages to user                     |
+| **POST**   | `/new`               | Create a new package                          |
+| **PUT**    | `/edit/:packageId`   | Edit a especific package by ID                |
+| **DELETE** | `/delete/:packageId` | Delete especific package base on his ID       |
 
 ### Models:
 
@@ -84,7 +81,7 @@ const packageSchema = new Schema(
    title: {
     type: String,
     required: true,
- 
+
    },
    creator: {
     type: Schema.Types.ObjectId, ref: "user"
