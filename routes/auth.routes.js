@@ -13,9 +13,7 @@ const saltRounds = 10;
 
 router.post("/signup", (req, res, next) => {
 
-  const { email, password, userName, lastname, isTransporter } = req.body;
-
-  const username = userName;
+  const { email, password, username, lastname, isTransporter } = req.body;
 
   // Check if email or password or name are provided as empty strings
   if (email === "" || password === "" || username === "" || lastname === "") {
