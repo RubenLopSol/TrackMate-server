@@ -13,10 +13,11 @@ const packageSchema = new Schema(
     description: String,
     address: {
       type: String,
-      required: true,
+      required: true, 
     },
     size: {
       type: String,
+      default: "XS",
       enum: ["XS", "S", "M", "L", "XL", "XXL"],
     },
     coordinates: {
