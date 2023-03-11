@@ -20,7 +20,6 @@ const userSchema = new Schema(
     lastname: {
       type: String,
       required: true,
-
     },
     phone: {
       type: Number,
