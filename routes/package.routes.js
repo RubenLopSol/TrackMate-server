@@ -16,7 +16,7 @@ router.post("/new", (req, res, next) => {
 
     Package.create({ title, description, address, size, coordinates })
       .then(response => {
-        res.json(response)
+        res.json(response);
       })
       .catch(err => next(err))
 })
