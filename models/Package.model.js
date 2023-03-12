@@ -21,9 +21,6 @@ const packageSchema = new Schema(
       enum: ["XS", "S", "M", "L", "XL", "XXL"],
     },
     coordinates: {
-type: String,
-    },
-    coordinates: {
       lat: {type: Number},
       lng: {type: Number}
     },

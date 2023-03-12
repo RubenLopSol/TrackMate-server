@@ -43,7 +43,13 @@ router.post("/signup", (req, res, next) => {
       const hashedPassword = bcrypt.hashSync(password, salt);
       // Create the new user in the database
       // We return a pending promise, which allows us to chain another `then`
-      return User.create({ email, password: hashedPassword, username, lastname, isTransporter });
+      return User.create({
+        email,
+        password: hashedPassword,
+        username,
+        lastname,
+        isTransporter,
+      });
     })
     .then((createdUser) => {
       // Deconstruct the newly created user object to omit the password
@@ -72,7 +78,6 @@ router.post("/login", (req, res, next) => {
       if (passwordCorrect) {
         const { _id, email, name } = foundUser;
         const payload = { _id, email, name };
-        
         const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {
           algorithm: "HS256",
           expiresIn: "6h",
@@ -97,18 +102,18 @@ router.get("/profile/:id", (req, res, next) => {
   const { id } = req.params;
   User.findById(id)
     /* .populate("package") */
-    .then(response => {
-      res.json(response)
+    .then((response) => {
+      res.json(response);
     })
-    .catch(err => next(err))
-})
+    .catch((err) => next(err));
+});
 router.put("/profile/:id/edit", (req, res, next) => {
   const { id } = req.params;
   const { username, email } = req.body;
   User.findByIdAndUpdate(id, { username, email }, { new: true })
-    .then(result => {
-      res.json(result)
+    .then((result) => {
+      res.json(result);
     })
-    .catch(err => next(err))
-})
+    .catch((err) => next(err));
+});
 module.exports = router;
