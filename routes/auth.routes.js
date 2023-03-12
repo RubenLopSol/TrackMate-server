@@ -31,7 +31,7 @@ router.post("/signup", (req, res, next) => {
   if (!passwordRegex.test(password)) {
     res.status(400).json({
       message:
-        "Password must have at least 6 characters and contain at least one number, one lowercase and one uppercase letter.",
+        "Password must have at least 6 characters and contain at least one number, one lowercase and one uppercase letter.:",
     });
     return;
   }
@@ -44,7 +44,7 @@ router.post("/signup", (req, res, next) => {
           })
           .catch(err => next(err)) */
       if (foundUser) {
-        res.json({error: "el usuario ya existe"});
+        res.json({error: "Email already exist"});
         return;
       }
       const salt = bcrypt.genSaltSync(saltRounds);
@@ -91,13 +91,13 @@ router.post("/login", (req, res, next) => {
         const { _id, email, name } = foundUser;
 
         const payload = { _id, email, name };
-
+        
         const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {
           algorithm: "HS256",
           expiresIn: "6h",
         });
 
-        res.status(200).json({ authToken: authToken });
+        res.status(200).json({ authToken: authToken, idUser:_id});
       } else {
         res.status(401).json({ message: "Unable to authenticate the user" });
       }
