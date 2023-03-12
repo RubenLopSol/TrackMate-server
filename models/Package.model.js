@@ -19,6 +19,10 @@ const packageSchema = new Schema(
       type: String,
       enum: ["XS", "S", "M", "L", "XL", "XXL"],
     },
+    coordinates: {
+      lat: {type: Number},
+      lng: {type: Number}
+    },
     isTransported: {
       type: String,
       default: "Pending",
