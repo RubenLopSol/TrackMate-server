@@ -3,6 +3,14 @@ const { findByIdAndUpdate } = require("../models/Package.model");
 const router = express.Router();
 const Package = require("../models/Package.model")
 
+router.get("/all" , (req, res, next) => {
+Package.find()
+.then(response => {
+  res.json(response)
+})
+.catch(err=> next(err))
+})
+
 router.get("/:idUser", (req, res, next) => {
   const {idUser} = req.params;
   Package.find( {creator: idUser} )
