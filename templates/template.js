@@ -1,4 +1,4 @@
-function templateExample (name) { 
+function templateExample (userName) { 
     return `
       <!DOCTYPE html>
       <html lang="en">
@@ -11,7 +11,7 @@ function templateExample (name) {
       <body>
       <body class="bg-light">
       <div class="container">
-      Hello ${name}!
+      Hello ${userName}!
 
       You have been signed up correctly!
 
