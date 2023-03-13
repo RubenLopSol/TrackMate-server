@@ -12,14 +12,8 @@ router.get("/:idUser", (req, res, next) => {
     .catch(err => next(err))
 });
 router.post("/new", (req, res, next) => {
-<<<<<<< HEAD
   const { title, description, address, size, coordinates, creator } = req.body;
     Package.create({ title, description, address, size, coordinates, creator })
-=======
-  const { title, description, address, size, coordinates } = req.body;
-
-    Package.create({ title, description, address, size, coordinates })
->>>>>>> xabi
       .then(response => {
         res.json(response);
       })
