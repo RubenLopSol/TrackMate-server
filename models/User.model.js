@@ -20,12 +20,11 @@ const userSchema = new Schema(
     lastname: {
       type: String,
       required: true,
-
     },
-    /* phone: {
+    phone: {
       type: Number,
       unique: true,
-    }, */
+    },
     avatar: {
       type: String,
       default: " ",
