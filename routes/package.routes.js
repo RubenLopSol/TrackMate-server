@@ -38,12 +38,12 @@ router.get("/:idPackage", (req, res, next) => {
     .catch(err => next(err))
 })
 router.put("/:idPackage/edit", (req, res, next) => {
-  const { id } = req.params;
-  const { title, description, address } = req.body;
+  const { idPackage } = req.params;
+  const { title, description, address, size, /* isTransported */} = req.body;
 
-  if (isTransported != "Pending") return;
+ /*  if (isTransported != "Pending") return; */
 
-  findByIdAndUpdate(id, {title, description, address}, {new:true})
+  Package.findByIdAndUpdate(idPackage, {title, description, address, size, /* isTransported */}, {new:true})
   .then(result => {
     res.json(result)
   })
