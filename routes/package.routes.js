@@ -43,10 +43,11 @@ router.put("/:idPackage/edit", (req, res, next) => {
 
 })
 
-router.delete("/:idPackage/delete", (req, res, next)=> {
-  const{id} = req.params;
-  if(isTransported != "Pending") return;
-  Package.findByIdAndDelete(id)
+router.delete("/delete/:idPackage", (req, res, next)=> {
+  const{idPackage} = req.params;
+  console.log("IDENTIFICADOR", idPackage)
+  /* if(isTransported != "Pending") return; */
+  Package.findByIdAndDelete(idPackage)
   .then(result=> {
     res.json(result)
   })
