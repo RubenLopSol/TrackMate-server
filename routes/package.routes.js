@@ -3,6 +3,14 @@ const { findByIdAndUpdate } = require("../models/Package.model");
 const router = express.Router();
 const Package = require("../models/Package.model")
 
+router.get("/all" , (req, res, next) => {
+Package.find()
+.then(response => {
+  res.json(response)
+})
+.catch(err=> next(err))
+})
+
 router.get("/:idUser", (req, res, next) => {
   const {idUser} = req.params;
   Package.find( {creator: idUser} )
@@ -12,14 +20,8 @@ router.get("/:idUser", (req, res, next) => {
     .catch(err => next(err))
 });
 router.post("/new", (req, res, next) => {
-<<<<<<< HEAD
   const { title, description, address, size, coordinates, creator } = req.body;
     Package.create({ title, description, address, size, coordinates, creator })
-=======
-  const { title, description, address, size, coordinates } = req.body;
-
-    Package.create({ title, description, address, size, coordinates })
->>>>>>> xabi
       .then(response => {
         res.json(response);
       })

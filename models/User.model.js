@@ -32,7 +32,10 @@ const userSchema = new Schema(
     myPackages:
       [{ type: Schema.Types.ObjectId, ref: "Package" }]
     ,
-
+    coordinates: {
+      lat: {type: Number},
+      lng: {type: Number}
+    },
     isTransporter: {
       type: Boolean,
       default: false,

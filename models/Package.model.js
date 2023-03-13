@@ -1,27 +1,21 @@
 const { Schema, model } = require("mongoose");
-
 const packageSchema = new Schema(
   {
     title: {
       type: String,
       required: true,
-
     },
-    creator: {
-      type: Schema.Types.ObjectId, ref: "User",
-    },
+    creator: 
+      [{type: Schema.Types.ObjectId, ref: "User"}],
+  
     description: String,
     address: {
       type: String,
-      required: true, 
+      required: true,
     },
     size: {
       type: String,
-      default: "XS",
       enum: ["XS", "S", "M", "L", "XL", "XXL"],
-    },
-    coordinates: {
-type: String,
     },
     coordinates: {
       lat: {type: Number},
@@ -37,7 +31,12 @@ type: String,
     timestamps: true,
   }
 );
-
 const Package = model("Package", packageSchema);
-
 module.exports = Package;
+
+
+
+
+
+
+
