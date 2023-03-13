@@ -3,6 +3,14 @@ const { findByIdAndUpdate } = require("../models/Package.model");
 const router = express.Router();
 const Package = require("../models/Package.model")
 
+router.get("/all" , (req, res, next) => {
+Package.find()
+.then(response => {
+  res.json(response)
+})
+.catch(err=> next(err))
+})
+
 router.get("/:idUser", (req, res, next) => {
   const {idUser} = req.params;
   Package.find( {creator: idUser} )
@@ -30,12 +38,12 @@ router.get("/:idPackage", (req, res, next) => {
     .catch(err => next(err))
 })
 router.put("/:idPackage/edit", (req, res, next) => {
-  const { id } = req.params;
-  const { title, description, address } = req.body;
+  const { idPackage } = req.params;
+  const { title, description, address, size, /* isTransported */} = req.body;
 
-  if (isTransported != "Pending") return;
+ /*  if (isTransported != "Pending") return; */
 
-  findByIdAndUpdate(id, {title, description, address}, {new:true})
+  Package.findByIdAndUpdate(idPackage, {title, description, address, size, /* isTransported */}, {new:true})
   .then(result => {
     res.json(result)
   })
