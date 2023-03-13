@@ -2,13 +2,13 @@
 
 Hello! Our project intends to implement a very useful application to facilitate the delivery of packages by transport companies.
 In turn, provide a detailed user experience, about the process in which the package is, for the recipient of it.
-Below you will find more specific information about the code implemented in this case, the frontend part, with React.
+Below you will find more specific information about the code implemented in this case, the backend part.
 
 ![photo](imgREADME.png)
 
 ### Project Deployment
 
-The project is deployed using fly.dev **[here](##)**
+The project is deployed using fly.dev **[here](https://fly.io/apps/trackmateserver)**
 
 ### Work structure
 
@@ -28,7 +28,7 @@ Fork and clone this repo and follow the belo instructions
 | Role             | Capabilities                                                                                                                                                                                                                      | Properities          |
 | :--------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
 | **User/User**    | User can `login/logout` to his/her personal profile and read/delete/create new packages, modify his/her personal data and one time package is send, can track the estatus of his sending looking the real position of the Carrier | isTransporter: false |
-| **User/Carrier** | Carrier have access to `login/logout` and to all packages, stored by sending day, and a map with the most optimal route to deliver his/her cargo                                                                                  | isTransporter: true  |
+| **User/Driver** | Carrier have access to `login/logout` and to all packages, stored by sending day, and a map with the most optimal route to deliver his/her cargo                                                                                  | isTransporter: true  |
 
 ### Routes
 
@@ -61,13 +61,45 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required."],
     },
-    name: {
+    username: {
       type: String,
       required: [true, "Name is required."],
     },
+    lastname: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: Number,
+      unique: true,
+    }, 
+    avatar: {
+      type: String,
+      default: " ",
+    },
+    myPackages: [{ type: Schema.Types.ObjectId, ref: "Package" }],
+    isTransporter: {
+      type: Boolean,
+      default: false,
+    },
+    driverLicense: {
+      type: String,
+      unique: true,
+      license: {
+        type: String,
+        enum: ["B1", "B", "C1"],
+      },
+      image: {
+        type: String,
+      },
+    },
+    licensePlate: {
+      type: String,
+    },
+
+    transportedPackages: [{ type: Schema.Types.ObjectId, ref: "Package" }],
   },
   {
-
     timestamps: true,
   }
 );
@@ -78,22 +110,32 @@ const userSchema = new Schema(
 ## Package model
 const packageSchema = new Schema(
   {
-   title: {
-    type: String,
-    required: true,
+    title: {
+      type: String,
+      required: true,
 
-   },
-   creator: {
-    type: Schema.Types.ObjectId, ref: "user"
-   },
-   description: String,
-   adress: {
-    type: String,
-    required: true,
-   },
-   filepath: {
-    type: String,
-   }
+    },
+    creator: {
+      type: Schema.Types.ObjectId, ref: "User",
+    },
+    description: String,
+    address: {
+      type: String,
+      required: true,
+    },
+    size: {
+      type: String,
+      enum: ["XS", "S", "M", "L", "XL", "XXL"],
+    },
+    coordinates: {
+      lat: {type: Number},
+      lng: {type: Number}
+    },
+    isTransported: {
+      type: String,
+      default: "Pending",
+      enum: ["Pending", "In delivery", "Delivered"]
+    }
   },
   {
     timestamps: true,
