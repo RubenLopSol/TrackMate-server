@@ -39,10 +39,10 @@ router.get("/:idPackage", (req, res, next) => {
 })
 router.put("/:idPackage/edit", (req, res, next) => {
   const { idPackage } = req.params;
-  const { title, description, address, size, /* isTransported */} = req.body;
+  const { title, description, address, size, coordinates} = req.body;
  /*  if (isTransported != "Pending") return; */
   console.log("IDENTIFICADOR BACKEND: ", idPackage)
-  Package.findByIdAndUpdate(idPackage, {title, description, address, size, /* isTransported */}, {new:true})
+  Package.findByIdAndUpdate(idPackage, {title, description, address, size, coordinates}, {new:true})
   .then(result => {
     res.json(result)
   })
