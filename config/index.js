@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 require("dotenv").config();
 
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+//const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 
 module.exports = (app) => {
 
@@ -16,7 +16,8 @@ module.exports = (app) => {
 
   app.use(
     cors({
-      origin: FRONTEND_URL,
+      credentials: true,
+      origin: process.env.FRONTEND_URL || "http://localhost:3000"
     })
   );
 
