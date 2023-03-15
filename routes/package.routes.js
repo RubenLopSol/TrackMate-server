@@ -38,12 +38,11 @@ router.get("/:idPackage", (req, res, next) => {
     .catch(err => next(err))
 })
 router.put("/:idPackage/edit", (req, res, next) => {
-  const { id } = req.params;
-  const { title, description, address } = req.body;
-
-  if (isTransported != "Pending") return;
-
-  findByIdAndUpdate(id, {title, description, address}, {new:true})
+  const { idPackage } = req.params;
+  const { title, description, address, size, coordinates} = req.body;
+ /*  if (isTransported != "Pending") return; */
+  console.log("IDENTIFICADOR BACKEND: ", idPackage)
+  Package.findByIdAndUpdate(idPackage, {title, description, address, size, coordinates}, {new:true})
   .then(result => {
     res.json(result)
   })
@@ -51,10 +50,11 @@ router.put("/:idPackage/edit", (req, res, next) => {
 
 })
 
-router.delete("/:idPackage/delete", (req, res, next)=> {
-  const{id} = req.params;
-  if(isTransported != "Pending") return;
-  Package.findByIdAndDelete(id)
+router.delete("/delete/:idPackage", (req, res, next)=> {
+  const{idPackage} = req.params;
+  console.log("IDENTIFICADOR", idPackage)
+  /* if(isTransported != "Pending") return; */
+  Package.findByIdAndDelete(idPackage)
   .then(result=> {
     res.json(result)
   })
