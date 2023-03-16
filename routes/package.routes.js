@@ -40,9 +40,8 @@ router.get("/:idUser", (req, res, next) => {
 });
 router.put("/:idPackage/edit", (req, res, next) => {
   const { idPackage } = req.params;
-  const { address, coordinates, driverAssigned, isTransported } = req.body;
-  /* if (isTransported != "Pending") return; */
-  Package.findByIdAndUpdate(idPackage, { address, coordinates, driverAssigned, isTransported }, {new:true})
+  const { title, description, address, size, coordinates, isTransported} = req.body;
+  Package.findByIdAndUpdate(idPackage, {title, description, address, size, coordinates, isTransported}, {new:true})
   .then(result => {
     res.json(result)
   })
@@ -52,7 +51,7 @@ router.put("/:idPackage/edit", (req, res, next) => {
 
 router.delete("/delete/:idPackage", (req, res, next)=> {
   const{idPackage} = req.params;
-  /* if(isTransported != "Pending") return; */
+
   Package.findByIdAndDelete(idPackage)
   .then(result=> {
     res.json(result)
