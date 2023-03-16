@@ -12,26 +12,6 @@ Package.find()
 .catch(err=> next(err))
 })
 
-router.get("/pack/:idPackage", (req, res, next) => {
-  const { idPackage } = req.params;
-  console.log("idPackage", idPackage)
-  Package.findById(idPackage)
-    .populate("driverAssigned")
-    .then(response => {
-      console.log(response)
-      res.json(response)
-    })
-    .catch(err => next(err))
-})
-
-router.get("/:idUser", (req, res, next) => {
-  const {idUser} = req.params;
-  Package.find( {creator: idUser} )
-    .then(response => {
-      res.json(response)
-    })
-    .catch(err => next(err))
-});
 router.post("/new", (req, res, next) => {
   const { title, description, address, size, coordinates, creator } = req.body;
     Package.create({ title, description, address, size, coordinates, creator })
@@ -41,6 +21,23 @@ router.post("/new", (req, res, next) => {
       .catch(err => next(err))
 })
 
+router.get("/pack/:idPackage", (req, res, next) => {
+  const { idPackage } = req.params;
+  Package.findById(idPackage)
+    .populate("driverAssigned")
+    .then(response => {
+      res.json(response)
+    })
+    .catch(err => next(err))
+})
+router.get("/:idUser", (req, res, next) => {
+  const {idUser} = req.params;
+  Package.find( {creator: idUser} )
+    .then(response => {
+      res.json(response)
+    })
+    .catch(err => next(err))
+});
 router.put("/:idPackage/edit", (req, res, next) => {
   const { idPackage } = req.params;
   const { address, coordinates, driverAssigned, isTransported } = req.body;
@@ -55,7 +52,7 @@ router.put("/:idPackage/edit", (req, res, next) => {
 
 router.delete("/delete/:idPackage", (req, res, next)=> {
   const{idPackage} = req.params;
-  /* if(isTransported != "Pending") return; */
+
   Package.findByIdAndDelete(idPackage)
   .then(result=> {
     res.json(result)
