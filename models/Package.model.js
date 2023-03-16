@@ -5,9 +5,9 @@ const packageSchema = new Schema(
       type: String,
       required: true,
     },
-    creator: 
-      {type: Schema.Types.ObjectId, ref: "User"},
-  
+    creator: {
+      type: Schema.Types.ObjectId, ref: "User"
+    },
     description: String,
     address: {
       type: String,
@@ -25,6 +25,9 @@ const packageSchema = new Schema(
       type: String,
       default: "Pending",
       enum: ["Pending", "In delivery", "Delivered"]
+    },
+    driverAssigned: {
+      type: Schema.Types.ObjectId, ref: "User"
     }
   },
   {

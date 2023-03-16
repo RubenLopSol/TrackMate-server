@@ -4,7 +4,7 @@ const userSchema = new Schema(
   {
     email: {
       type: String,
-      required: true, 
+      required: true,
       unique: true,
       lowercase: true,
       trim: true,
@@ -21,10 +21,6 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    /* phone: {
-      type: Number,
-      unique: true,
-    }, */
     avatar: {
       type: String,
       default: " ",
@@ -48,7 +44,10 @@ const userSchema = new Schema(
     licensePlate: {
       type: String,
     },
-
+    driverCoordinates: {
+      lat: {type: Number},
+      lng: {type: Number}
+    },
     transportedPackages: [{ type: Schema.Types.ObjectId, ref: "Package" }],
   },
   {

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-/* const sendMail = require("../utils/nodemailer") */
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User.model");
@@ -10,7 +10,7 @@ router.post("/signup", (req, res, next) => {
 
   const { email, password, username, lastname, isTransporter } = req.body;
 
-  // Check if email or password or name are provided as empty strings
+
   if (email === "" || password === "" || username === "" || lastname === "") {
     res.status(400).json({ message: "Provide email, password and name" });
     return;
@@ -30,19 +30,14 @@ router.post("/signup", (req, res, next) => {
   }
   User.findOne({ email })
     .then((foundUser) => {
-      /*   sendMail(foundUser.email, "Truck Mate: You have been correctly signed up!", name)
-          .then(result => {
-            res.json("ok", result)
-          })
-          .catch(err => next(err)) */
+
       if (foundUser) {
         res.json({error: "Email already exist"});
         return;
       }
       const salt = bcrypt.genSaltSync(saltRounds);
       const hashedPassword = bcrypt.hashSync(password, salt);
-      // Create the new user in the database
-      // We return a pending promise, which allows us to chain another `then`
+
       return User.create({
         email,
         password: hashedPassword,
@@ -52,12 +47,11 @@ router.post("/signup", (req, res, next) => {
       });
     })
     .then((createdUser) => {
-      // Deconstruct the newly created user object to omit the password
-      // We should never expose passwords publicly
+
       const { email, username, _id } = createdUser;
-      // Create a new object that doesn't expose the password
+
       const user = { email, username, _id };
-      // Send a json response containing the user object
+
       res.status(201).json({ user: username });
     })
     .catch((err) => next(err));
@@ -90,18 +84,15 @@ router.post("/login", (req, res, next) => {
     })
     .catch((err) => next(err));
 });
-// GET  /auth/verify  -  Used to verify JWT stored on the client
+
 router.get("/verify", isAuthenticated, (req, res, next) => {
-  // If JWT token is valid the payload gets decoded by the
-  // isAuthenticated middleware and is made available on `req.payload`
-  // console.log(`req.payload`, req.payload);
-  // Send back the token payload object containing the user data
+
   res.status(200).json(req.payload);
 });
-router.get("/profile/:id", (req, res, next) => {
+/* router.get("/profile/:id", (req, res, next) => {
   const { id } = req.params;
   User.findById(id)
-    /* .populate("package") */
+    .populate("package")
     .then((response) => {
       res.json(response);
     })
@@ -115,5 +106,5 @@ router.put("/profile/:id/edit", (req, res, next) => {
       res.json(result);
     })
     .catch((err) => next(err));
-});
+}); */
 module.exports = router;
