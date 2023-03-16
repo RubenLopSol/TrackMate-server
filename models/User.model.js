@@ -27,7 +27,8 @@ const userSchema = new Schema(
     }, */
     avatar: {
       type: String,
-      default: " ",
+      required: false,
+      
     },
     myPackages: [{ type: Schema.Types.ObjectId, ref: "Package" }],
     isTransporter: {

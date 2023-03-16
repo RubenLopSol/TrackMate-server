@@ -17,15 +17,32 @@ router.post("/upload", fileUploader.single("avatar"), (req, res, next) => {
   });
 
   // POST '/user/avatar' => for saving a avatar in the database
-router.post("/avatar", (req, res, next) => {
+router.post("/avatar/:idUser", (req, res, next) => {
+  const {idUser}= req.params
+  console.log("req.body is =",req.body)
+  User.findByIdAndUpdate(idUser, req.body)
 
-  User.create(req.body)
-    .then((createdAvatar) => {
-      console.log("Created new movie: ", createdAvatar);
-      res.status(200).json(createdAvatar);
+    .then((avatar) => {
+      console.log("Updated user info : ", avatar);
+      res.status(200).json(avatar);
     })
     .catch((err) => next(err));
 });
+
+// GET '/user/avator/:idUser'
+// router.get("/avatar/:idUser", (req, res, next) => {
+//   const {idUser}= req.params
+//   //console.log("req.body=",req.body)
+//   User.findById(idUser)
+
+//     .then((result) => {
+//       console.log("Search avator for user:  ", result.avatar);
+//       res.status(200).json(result);
+//     })
+//     .catch((err) => next(err));
+// });
+
+
 
 module.exports = router;
 
