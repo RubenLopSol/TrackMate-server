@@ -1,32 +1,28 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User.model")
-/* const fileUploader = require("../config/cloudinary.config");
+const fileUploader = require("../config/cloudinary.config");
 
 
-// POST "/user/upload" => Route that receives the image, sends it to Cloudinary via the fileUploader and returns the image URL
 router.post("/upload", fileUploader.single("avatar"), (req, res, next) => {
     // console.log("file is: ", req.file)
-   
     if (!req.file) {
       next(new Error("No file uploaded!"));
       return;
     }
-    
     res.json({ fileUrl: req.file.path });
   });
-
   // POST '/user/avatar' => for saving a avatar in the database
-router.put("/avatar/:Iduser", (req, res, next) => {
-
-  User.findByIdAndUpdate(req.body)
-
+router.post("/avatar/:idUser", (req, res, next) => {
+  const {idUser}= req.params
+  console.log("req.body=",req.body)
+  User.findByIdAndUpdate(idUser, req.body)
     .then((avatar) => {
       console.log("Created new : ", avatar);
       res.status(200).json(avatar);
     })
     .catch((err) => next(err));
-}); */
+});
 
 router.put("/edit/:idUser", (req, res, next) => {
     const { idUser } = req.params;
