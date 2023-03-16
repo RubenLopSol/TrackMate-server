@@ -4,7 +4,7 @@ const userSchema = new Schema(
   {
     email: {
       type: String,
-      required: true, 
+      required: true,
       unique: true,
       lowercase: true,
       trim: true,
@@ -21,10 +21,6 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    /* phone: {
-      type: Number,
-      unique: true,
-    }, */
     avatar: {
       type: String,
       default: " ",
