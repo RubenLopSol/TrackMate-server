@@ -12,6 +12,18 @@ Package.find()
 .catch(err=> next(err))
 })
 
+router.get("/pack/:idPackage", (req, res, next) => {
+  const { idPackage } = req.params;
+  console.log("idPackage", idPackage)
+  Package.findById(idPackage)
+    .populate("driverAssigned")
+    .then(response => {
+      console.log(response)
+      res.json(response)
+    })
+    .catch(err => next(err))
+})
+
 router.get("/:idUser", (req, res, next) => {
   const {idUser} = req.params;
   Package.find( {creator: idUser} )
@@ -29,20 +41,11 @@ router.post("/new", (req, res, next) => {
       .catch(err => next(err))
 })
 
-router.get("/:idPackage", (req, res, next) => {
-  const { idPackage } = req.params;
-  Package.findById(idPackage)
-    .populate("driverAssigned")
-    .then(response => {
-      res.json(response)
-    })
-    .catch(err => next(err))
-})
 router.put("/:idPackage/edit", (req, res, next) => {
   const { idPackage } = req.params;
-  const { address, coordinates, driverAssigned } = req.body;
+  const { address, coordinates, driverAssigned, isTransported } = req.body;
   /* if (isTransported != "Pending") return; */
-  Package.findByIdAndUpdate(idPackage, { address, coordinates, driverAssigned }, {new:true})
+  Package.findByIdAndUpdate(idPackage, { address, coordinates, driverAssigned, isTransported }, {new:true})
   .then(result => {
     res.json(result)
   })
