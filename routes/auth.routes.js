@@ -98,10 +98,10 @@ router.get("/verify", isAuthenticated, (req, res, next) => {
   // Send back the token payload object containing the user data
   res.status(200).json(req.payload);
 });
-router.get("/profile/:id", (req, res, next) => {
+/* router.get("/profile/:id", (req, res, next) => {
   const { id } = req.params;
   User.findById(id)
-    /* .populate("package") */
+    .populate("package")
     .then((response) => {
       res.json(response);
     })
@@ -115,5 +115,5 @@ router.put("/profile/:id/edit", (req, res, next) => {
       res.json(result);
     })
     .catch((err) => next(err));
-});
+}); */
 module.exports = router;
