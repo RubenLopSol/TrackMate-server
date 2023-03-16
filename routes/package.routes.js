@@ -5,6 +5,7 @@ const Package = require("../models/Package.model")
 
 router.get("/all" , (req, res, next) => {
 Package.find()
+.populate("driverAssigned")
 .then(response => {
   res.json(response)
 })
@@ -31,7 +32,7 @@ router.post("/new", (req, res, next) => {
 router.get("/:idPackage", (req, res, next) => {
   const { idPackage } = req.params;
   Package.findById(idPackage)
-    .populate("creator")
+    .populate("driverAssigned")
     .then(response => {
       res.json(response)
     })
@@ -39,10 +40,9 @@ router.get("/:idPackage", (req, res, next) => {
 })
 router.put("/:idPackage/edit", (req, res, next) => {
   const { idPackage } = req.params;
-  const { title, description, address, size, coordinates, isTransported} = req.body;
- /*  if (isTransported != "Pending") return; */
-  console.log("IDENTIFICADOR BACKEND: ", idPackage)
-  Package.findByIdAndUpdate(idPackage, {title, description, address, size, coordinates, isTransported}, {new:true})
+  const { address, coordinates, driverAssigned } = req.body;
+  /* if (isTransported != "Pending") return; */
+  Package.findByIdAndUpdate(idPackage, { address, coordinates, driverAssigned }, {new:true})
   .then(result => {
     res.json(result)
   })

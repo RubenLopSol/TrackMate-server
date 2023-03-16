@@ -48,7 +48,10 @@ const userSchema = new Schema(
     licensePlate: {
       type: String,
     },
-
+    driverCoordinates: {
+      lat: {type: Number},
+      lng: {type: Number}
+    },
     transportedPackages: [{ type: Schema.Types.ObjectId, ref: "Package" }],
   },
   {
