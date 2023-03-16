@@ -11,7 +11,7 @@ function templateExample (userName) {
       <body>
       <body class="bg-light">
       <div class="container">
-      Hello ${userName}!
+      Hello ${ }!
 
       You have been signed up correctly!
 
