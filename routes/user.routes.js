@@ -18,11 +18,24 @@ router.post("/avatar/:idUser", (req, res, next) => {
   console.log("req.body=",req.body)
   User.findByIdAndUpdate(idUser, req.body)
     .then((avatar) => {
-      console.log("Created new : ", avatar);
+      console.log("Updated user info :", avatar);
       res.status(200).json(avatar);
     })
     .catch((err) => next(err));
 });
+
+// GET '/user/avator/:idUser'
+router.get("/avatar/:idUser", (req, res, next) => {
+  const {idUser}= req.params
+  User.findById(idUser)
+    .then((result) => {
+      console.log("Search avator for user:  ", result.avatar);
+      res.status(200).json(result.avatar);
+    })
+    .catch((err) => next(err));
+});
+
+
 
 router.put("/edit/:idUser", (req, res, next) => {
     const { idUser } = req.params;
