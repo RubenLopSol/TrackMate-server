@@ -8,7 +8,9 @@ Below you will find more specific information about the code implemented in this
 
 ### Project Deployment
 
-The project is deployed using fly.dev **[here](https://fly.io/apps/trackmateserver)**
+The server side from this project is deployed using fly.dev **[here](https://fly.io/apps/trackmateserver)**
+
+The client side from this project is deployed using netlify **[here](https://trackmateclient.netlify.app)**
 
 ### Work structure
 
@@ -16,7 +18,7 @@ We have developed this project using **[Trello](https://trello.com/b/ySq7J01o/pr
 
 ### Installation guide
 
-Fork and clone this repo and follow the belo instructions
+Fork and clone this repo and follow the below instructions
 
 ```
     npm install
@@ -27,16 +29,24 @@ Fork and clone this repo and follow the belo instructions
 
 | Role             | Capabilities                                                                                                                                                                                                                      | Properities          |
 | :--------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
-| **User/User**    | User can `login/logout` to his/her personal profile and read/delete/create new packages, modify his/her personal data and one time package is send, can track the estatus of his sending looking the real position of the Carrier | isTransporter: false |
-| **User/Driver** | Carrier have access to `login/logout` and to all packages, stored by sending day, and a map with the most optimal route to deliver his/her cargo                                                                                  | isTransporter: true  |
+| **User/User**    | User can `login/logout` to his/her personal profile and read/delete/create new packages, modify his/her personal data and one time package is send, can track the status of his sending looking the real position of the driver | isTransporter: false |
+| **User/Driver** | Driver have access to `login/logout` and to all packages, stored by sending day, and a map with the most optimal route to deliver his/her cargo                                                                                  | isTransporter: true  |
 
-### Routes
+###  User Routes
 
 | Method     | Endpoint             | Description                                   |
 | :--------- | :------------------- | :-------------------------------------------- |
 | **POST**   | `/signup`            | User register DataBase                        |
 | **POST**   | `/login`             | Verifies email and password and returns a JWT |
 | **GET**    | `/verify`            | Verify if JWT is stored on client             |
+| **POST**   | `/user/upload`       | Upload the avatar to Cloudinary               |
+| **POST**   | `/user/:idUser`      | Store the avatar to Database                  |
+| **GET**    | `/user/:idUser`      | Retrieve the avatar for specific user from Database|
+
+### Packages routes
+
+| Method     | Endpoint             | Description                                   |
+| :--------- | :------------------- | :-------------------------------------------- |
 | **GET**    | `/all`               | Send all packages to user                     |
 | **POST**   | `/new`               | Create a new package                          |
 | **PUT**    | `/edit/:packageId`   | Edit a especific package by ID                |
@@ -69,10 +79,6 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    phone: {
-      type: Number,
-      unique: true,
-    }, 
     avatar: {
       type: String,
       default: " ",
